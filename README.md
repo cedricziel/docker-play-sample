@@ -17,3 +17,10 @@ Upon building, the app will be packaged and pre-built.
 Play! is set as Entrypoint so you can add options like this:
 
 `` docker run -i -p 9001:9001 -t cedricziel/docker-play-sample -Dhttp.port=9001 start``
+
+Now With a database:
+--------------------
+
+1. Pull and run a Postgres Container
+
+``docker run --name play-pg -d -e POSTGRESQL_USER=test -e POSTGRESQL_PASS=oe9jaacZLbR9pN -e POSTGRESQL_DB=test orchardup/postgresql``
