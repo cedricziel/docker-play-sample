@@ -23,4 +23,33 @@ Now With a database:
 
 1. Pull and run a Postgres Container
 
-``docker run --name play-pg -d -e POSTGRESQL_USER=test -e POSTGRESQL_PASS=oe9jaacZLbR9pN -e POSTGRESQL_DB=test orchardup/postgresql``
+```bash
+docker run \
+    --name play-pg -d \
+    -e POSTGRESQL_USER=test \
+    -e POSTGRESQL_PASS=oe9jaacZLbR9pN \
+    -e POSTGRESQL_DB=test \
+    orchardup/postgresql
+```
+
+There is now a docker container running with the given credentials
+and a DB test.
+
+2. Run container linked to Postgres Container
+
+```bash
+docker run \
+    --name play-app \
+    --link play-pg:db \
+    -i -p 9001:9001 \
+    -t cedricziel/docker-play-sample \
+    -Dhttp.port=9001 \
+    -Ddb.default.driver=org.postgresql.Driver \
+    -Ddb.default.url="jdbc:postgresql://db/test" \
+    -Ddb.default.user=test \
+    -Ddb.default.password="oe9jaacZLbR9pN" \
+    -DapplyEvolutions.default=true \
+    start
+```
+
+Runs the app in production mode linked to a the DB
